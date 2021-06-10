@@ -59,6 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title:
             Text(widget.title, style: TextStyle(fontWeight: FontWeight.bold)),
       ),
@@ -125,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           _saveTheDate(context);
         },
-        tooltip: 'Save the date',
+        tooltip: 'Agendar Turno Nuevo',
         child: Icon(Icons.calendar_today),
       ),
     );
