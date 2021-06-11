@@ -351,7 +351,3 @@ MigrationBackup/
 
 #DS_STORE
 .DS_STORE
-/.dart_tool/
-/.idea/
-/.packages
-/build/
