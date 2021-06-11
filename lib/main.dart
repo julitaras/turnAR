@@ -59,22 +59,66 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title:
             Text(widget.title, style: TextStyle(fontWeight: FontWeight.bold)),
       ),
-      body: Center(
+      body: Container(
+        margin: const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Card(
               child: Column(
                 children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(50.0),
+                  Image.asset('assets/images/banner.jpeg'),
+                  const ListTile(
+                    title: Text('¡Bienvenido a TurnAR!'),
+                    subtitle: Text('Plan de Vacunación COVID-19'),
                   )
                 ],
               ),
-            )
+            ),
+            Card(
+              margin: const EdgeInsets.only(top: 60.0),
+              child: Column(
+                children: <Widget>[
+                  const ListTile(
+                    title: Text('Próximo Turno:')
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text('25 de Julio, 08:45hs')
+                    ],
+                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      TextButton(
+                        child: const Text('VER TURNO'),
+                        onPressed: () { _saveTheDate(context); },
+                      ),
+                      const SizedBox(width: 8),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Card(
+              margin: const EdgeInsets.only(top: 10.0),
+              child: InkWell(
+                splashColor: Colors.blue.withAlpha(30),
+                onTap: () {
+                  _saveTheDate(context);
+                },
+                child: const SizedBox(
+                  width: 600,
+                  height: 50,
+                  child: Text('\nVer Mis Turnos',textAlign: TextAlign.center,),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -82,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           _saveTheDate(context);
         },
-        tooltip: 'Save the date',
+        tooltip: 'Agendar Turno Nuevo',
         child: Icon(Icons.calendar_today),
       ),
     );
