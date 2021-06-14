@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import './pages/misTurnos.dart';
 
 void main() {
   runApp(MyApp());
@@ -110,7 +111,8 @@ class _MyHomePageState extends State<MyHomePage> {
               child: InkWell(
                 splashColor: Colors.blue.withAlpha(30),
                 onTap: () {
-                  _saveTheDate(context);
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => MisTurnos()
+                  ));
                 },
                 child: const SizedBox(
                   width: 600,
