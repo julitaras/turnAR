@@ -23,6 +23,7 @@ class Body extends StatelessWidget {
             SizedBox(height: size.height * 0.03),
             Image.asset(
               "assets/images/login.png",
+              height: size.height * 0.35,
             ),
             SizedBox(height: size.height * 0.03),
             SizedBox(height: size.height * 0.03),
