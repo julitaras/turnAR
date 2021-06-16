@@ -355,3 +355,5 @@ MigrationBackup/
 /.packages
 /.idea
 build
+.flutter-plugins
+.flutter-plugins-dependencies
