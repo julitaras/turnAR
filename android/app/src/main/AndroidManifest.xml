@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.app_turnar">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="app_turnar"
         android:icon="@mipmap/ic_launcher">
