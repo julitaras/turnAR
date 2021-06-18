@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter_svg/svg.dart';
 import 'package:app_turnar/pages/Login/components/background.dart';
+import 'package:app_turnar/widgets/google_button.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   const Body({
     Key? key,
   }) : super(key: key);
 
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -26,6 +30,7 @@ class Body extends StatelessWidget {
               height: size.height * 0.35,
             ),
             SizedBox(height: size.height * 0.03),
+            GoogleButton(),
             SizedBox(height: size.height * 0.03),
           ],
         ),
