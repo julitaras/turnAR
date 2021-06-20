@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './pages/misTurnos.dart';
+import './pages/reservarTurnos.dart';
 
 void main() {
   runApp(MyApp());
@@ -126,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _saveTheDate(context);
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ReservarTurnos()));
         },
         tooltip: 'Agendar Turno Nuevo',
         child: Icon(Icons.calendar_today),
