@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import './pages/misTurnos.dart';
 import './pages/reservarTurnos.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Welcome to TurnAr',
       theme: ThemeData(
         primarySwatch: Colors.lightGreen,
