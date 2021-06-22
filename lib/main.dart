@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './pages/misTurnos.dart';
 import './pages/reservarTurnos.dart';
+import './pages/verTurno.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -98,7 +100,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: <Widget>[
                       TextButton(
                         child: const Text('VER TURNO'),
-                        onPressed: () { _saveTheDate(context); },
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => VerTurno()
+                          ));
+                        },
                       ),
                       const SizedBox(width: 8),
                     ],
