@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:app_turnar/pages/myTurns.dart';
+import 'package:app_turnar/pages/reservarTurnos.dart';
 /*import 'package:google_sign_in/google_sign_in.dart';*/
 
 class MyHomePage extends StatefulWidget {
@@ -80,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       TextButton(
                         child: const Text('VER TURNO'),
                         onPressed: () {
-                          _saveTheDate(context);
+                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => ReservarTurnos()));
                         },
                       ),
                       const SizedBox(width: 8),
