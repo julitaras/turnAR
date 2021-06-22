@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-
+import '../api/calendarClient.dart';
 
 class ReservarTurnos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-      return Turno();
+    return Turno();
   }
 }
 
@@ -13,10 +13,12 @@ class Turno extends StatefulWidget {
   _TurnoState createState() => _TurnoState();
 }
 
-class _TurnoState extends State<Turno>{
+class _TurnoState extends State<Turno> {
   DateTime pickedDate = DateTime.now();
+  TimeOfDay pickedTime = TimeOfDay.now();
   GlobalKey formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
+  CalendarClient calendarClient = CalendarClient();
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +34,7 @@ class _TurnoState extends State<Turno>{
             child: Column(children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(child: EmailBoxValue())
-                ],
+                children: <Widget>[Expanded(child: EmailBoxValue())],
               ),
               Container(
                   margin: EdgeInsets.only(top: 50.0),
@@ -44,8 +44,10 @@ class _TurnoState extends State<Turno>{
                         Expanded(
                             child: Text("Elegí Tu Sede:",
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold))),
-                        Expanded(child: DropDownValue()),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold))),
+                        SingleChildScrollView( child: Expanded(child: DropDownValue()), scrollDirection: Axis.horizontal,
+                        )
                       ])),
               Container(
                   margin: EdgeInsets.only(top: 40.0),
@@ -55,7 +57,8 @@ class _TurnoState extends State<Turno>{
                         Expanded(
                             child: Text("Elegí Tu Fecha:",
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold))),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold))),
                         Expanded(child: DatePicker())
                       ])),
               Container(
@@ -72,14 +75,27 @@ class _TurnoState extends State<Turno>{
                                   fontSize: 18, fontWeight: FontWeight.bold))),
                       Expanded(child: TimePicker())
                     ],
-                  ))
-            ]),
+                  )),
+              Container(
+                margin: EdgeInsets.only(top: 90.0),
+                child: ElevatedButton(
+                  child: Text(
+                    "Agregar a Google Calendar",
+                  ),
+                  onPressed: () {
+                    //log('add event pressed');
+                    calendarClient.insert(
+                      pickedDate,
+                      pickedTime
+                    );
+                  }),
+              )
+            ]
+            ),)
           ),
         ),
-      ),
     );
   }
-
 }
 
 /// This is the stateful widget that the main application instantiates.
@@ -227,7 +243,6 @@ class EmailBoxValue extends StatefulWidget {
 }
 
 class _EmailBoxValueState extends State<EmailBoxValue> {
-
   String? emailValue = '';
 
   @override
@@ -235,26 +250,25 @@ class _EmailBoxValueState extends State<EmailBoxValue> {
     TextStyle? textStyle = Theme.of(context).textTheme.title;
     // Build a Form widget using the _formKey created above.
     return TextFormField(
-      onSaved: (value){
-        emailValue = value;
-      },
-      decoration: InputDecoration(
-        labelText: "Email",
-        labelStyle: textStyle,
-        hintText: 'Ingrese su Email',
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+        onSaved: (value) {
+          emailValue = value;
+        },
+        decoration: InputDecoration(
+          labelText: "Email",
+          labelStyle: textStyle,
+          hintText: 'Ingrese su Email',
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          prefixIcon: Icon(Icons.mail),
         ),
-        prefixIcon: Icon(Icons.mail),
-      ),
-      keyboardType: TextInputType.emailAddress,
-      autofillHints: [AutofillHints.email],
-      validator: (value) {
-        if (value == null) {
-          return "Falta completar el Email";
-        }
-      }
-    );
+        keyboardType: TextInputType.emailAddress,
+        autofillHints: [AutofillHints.email],
+        validator: (value) {
+          if (value == null) {
+            return "Falta completar el Email";
+          }
+        });
   }
 }
 
