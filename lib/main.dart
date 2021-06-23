@@ -131,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ReservarTurnos()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => TakeTurn()));
         },
         tooltip: 'Agendar Turno Nuevo',
         child: Icon(Icons.calendar_today),
