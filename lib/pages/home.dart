@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Card(
               child: Column(
                 children: <Widget>[
-                  Image.asset('assets/images/banner.jpeg'),
+                  Image.asset('assets/images/vaccinated.png'),
                   const ListTile(
                     title: Text('¡Bienvenido a TurnAR!'),
                     subtitle: Text('Plan de Vacunación COVID-19'),
