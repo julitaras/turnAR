@@ -43,10 +43,8 @@ class _GoogleButtonState extends State<GoogleButton> {
             _isProcessing = true;
           });
           signInWithGoogle().then((User user) {
-            Navigator.of(context).pop();
-            Navigator.of(context).pushReplacement(
+            Navigator.of(context).push(
               MaterialPageRoute(
-                fullscreenDialog: true,
                 builder: (context) => MyHomePage(),
               ),
             );

@@ -1,21 +1,28 @@
+import 'package:app_turnar/pages/Login/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:app_turnar/pages/watchTurn.dart';
 import 'package:app_turnar/pages/myTurns.dart';
-import 'package:app_turnar/pages/reservarTurnos.dart';
-/*import 'package:google_sign_in/google_sign_in.dart';*/
+import 'package:app_turnar/pages/saveTurn.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, title}) : super(key: key);
 
   final String title = 'TurnAr';
 
-  /* final GoogleSignIn _googleSignIn = GoogleSignIn();*/
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  void signOutGoogle() async {
+    await _googleSignIn.signOut();
+    print("User Sign Out");
+  }
+
   void _saveTheDate(context) {
     showDialog(
         context: context,
@@ -81,7 +88,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       TextButton(
                         child: const Text('VER TURNO'),
                         onPressed: () {
-                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => ReservarTurnos()));
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ReservarTurnos()));
                         },
                       ),
                       const SizedBox(width: 8),
@@ -107,6 +115,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
+            ),
+            ElevatedButton(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Sign Out',
+                  style: TextStyle(fontSize: 25, color: Colors.white),
+                ),
+              ),
+              onPressed: () {
+                signOutGoogle();
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                    (Route<dynamic> route) => false);
+              },
             ),
           ],
         ),
