@@ -16,9 +16,11 @@ class App extends StatelessWidget {
       title: 'TurnAr',
       theme: ThemeData(
         brightness: Brightness.light,
+        primarySwatch: Colors.lightGreen,
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
+        primarySwatch: Colors.lightGreen,
       ),
       themeMode: ThemeMode.light,
       home: LoginScreen(),
