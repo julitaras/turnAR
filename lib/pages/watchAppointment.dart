@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:app_turnar/pages/saveTurn.dart';
+import 'package:app_turnar/pages/saveAppointment.dart';
 import 'package:app_turnar/pages/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class WatchTurn extends StatefulWidget {
-  WatchTurn({Key? key, required User user})
+class WatchAppointment extends StatefulWidget {
+  WatchAppointment({Key? key, required User user})
       : _user = user,
         super(key: key);
 
@@ -13,10 +13,10 @@ class WatchTurn extends StatefulWidget {
   final User _user;
 
   @override
-  _WatchTurnState createState() => _WatchTurnState();
+  _WatchAppointmentState createState() => _WatchAppointmentState();
 }
 
-class _WatchTurnState extends State<WatchTurn> {
+class _WatchAppointmentState extends State<WatchAppointment> {
   late User _user;
 
   @override

@@ -71,7 +71,7 @@ class _SignInButtonState extends State<SignInButton> {
                     Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child: Text(
-                        'Continue with Google',
+                        'Iniciar sesión con Google',
                         style: TextStyle(
                           fontSize: 20,
                           color: Colors.blueGrey,
@@ -105,9 +105,6 @@ class _SignInButtonState extends State<SignInButton> {
     User currentUser = _auth.currentUser!;
 
     assert(_user.uid == currentUser.uid);
-
-    print("User Name: ${_user.displayName}");
-    print("User Email ${_user.email}");
 
     return _user;
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:app_turnar/pages/watchTurn.dart';
-import 'package:app_turnar/pages/myTurns.dart';
-import 'package:app_turnar/pages/saveTurn.dart';
+import 'package:app_turnar/pages/watchAppointment.dart';
+import 'package:app_turnar/pages/myAppointments.dart';
+import 'package:app_turnar/pages/saveAppointment.dart';
 import 'package:app_turnar/pages/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: const Text('VER TURNO'),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => WatchTurn(user: _user)));
+                              builder: (context) => WatchAppointment(user: _user)));
                         },
                       ),
                       const SizedBox(width: 8),
@@ -124,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 splashColor: Colors.blue.withAlpha(30),
                 onTap: () {
                   Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) => MyTurns()));
+                      .push(MaterialPageRoute(builder: (context) => MyAppointments()));
                 },
                 child: const SizedBox(
                   width: 600,
