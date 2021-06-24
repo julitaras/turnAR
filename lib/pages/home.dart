@@ -39,7 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
               child: _user.photoURL != null
                   ? ClipOval(
                       child: Material(
-                        color: Colors.redAccent,
                         child: Image.network(
                           _user.photoURL!,
                           width: 50,
@@ -51,7 +50,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     )
                   : ClipOval(
                       child: Material(
-                        color: Colors.redAccent,
                         child: Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: Icon(
