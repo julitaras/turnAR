@@ -1,10 +1,9 @@
-import 'package:app_turnar/pages/Login/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:app_turnar/pages/watchTurn.dart';
 import 'package:app_turnar/pages/myTurns.dart';
 import 'package:app_turnar/pages/saveTurn.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:app_turnar/pages/user.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, title}) : super(key: key);
@@ -16,41 +15,29 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
-
-  void signOutGoogle() async {
-    await _googleSignIn.signOut();
-    print("User Sign Out");
-  }
-
-  void _saveTheDate(context) {
-    showDialog(
-        context: context,
-        builder: (_) => CupertinoAlertDialog(
-              title: Text('Info'),
-              content: Text('Date saved'),
-              actions: <Widget>[
-                CupertinoDialogAction(
-                  child: Text('Accept'),
-                  isDefaultAction: true,
-                  onPressed: () {
-                    Navigator.of(context, rootNavigator: true).pop("Discard");
-                  },
-                ),
-                CupertinoDialogAction(
-                  child: Text('Cancel'),
-                  isDefaultAction: false,
-                  isDestructiveAction: true,
-                  onPressed: () {
-                    Navigator.of(context, rootNavigator: true).pop("Cancel");
-                  },
-                ),
-              ],
-            ));
-  }
-
   @override
   Widget build(BuildContext context) {
+    Widget _upperContainer() {
+      return Align(
+        alignment: Alignment.topRight,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            GestureDetector(
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(
+                    'https://store.playstation.com/store/api/chihiro/00_09_000/container/US/en/999/UP1018-CUSA00133_00-AV00000000000015/1553561653000/image?w=256&h=256&bg_color=000000&opacity=100&_version=00_09_000'),
+              ),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => UserProfile()));
+              },
+            )
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -60,8 +47,8 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         margin: const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            _upperContainer(),
             Card(
               child: Column(
                 children: <Widget>[
@@ -115,21 +102,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-            ),
-            ElevatedButton(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Sign Out',
-                  style: TextStyle(fontSize: 25, color: Colors.white),
-                ),
-              ),
-              onPressed: () {
-                signOutGoogle();
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                    (Route<dynamic> route) => false);
-              },
             ),
           ],
         ),

@@ -5,12 +5,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class GoogleButton extends StatefulWidget {
+class SignInButton extends StatefulWidget {
   @override
-  _GoogleButtonState createState() => _GoogleButtonState();
+  _SignInButtonState createState() => _SignInButtonState();
 }
 
-class _GoogleButtonState extends State<GoogleButton> {
+class _SignInButtonState extends State<SignInButton> {
   bool _isProcessing = false;
   late User _user;
   final FirebaseAuth _auth = FirebaseAuth.instance;

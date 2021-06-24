@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:app_turnar/pages/Login/components/background.dart';
-import 'package:app_turnar/widgets/google_button.dart';
+import 'package:app_turnar/widgets/sign_in_button.dart';
 
 class Body extends StatefulWidget {
   const Body({
@@ -30,7 +30,7 @@ class _BodyState extends State<Body> {
               height: size.height * 0.35,
             ),
             SizedBox(height: size.height * 0.03),
-            GoogleButton(),
+            SignInButton(),
             SizedBox(height: size.height * 0.03),
           ],
         ),
