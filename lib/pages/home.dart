@@ -33,8 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget _upperContainer() {
       return Align(
         alignment: Alignment.topRight,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
           children: <Widget>[
             GestureDetector(
               child: _user.photoURL != null
@@ -43,7 +42,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         color: Colors.redAccent,
                         child: Image.network(
                           _user.photoURL!,
+                          width: 50,
+                          height: 50,
                           fit: BoxFit.fitHeight,
+                          alignment: Alignment.topRight,
                         ),
                       ),
                     )
@@ -51,10 +53,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Material(
                         color: Colors.redAccent,
                         child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.all(15.0),
                           child: Icon(
                             Icons.person,
-                            size: 60,
+                            size: 40,
                             color: Colors.grey,
                           ),
                         ),
