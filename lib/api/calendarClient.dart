@@ -1,13 +1,12 @@
 import 'dart:developer';
-import 'package:flutter/material.dart';
-import "package:googleapis_auth/auth_io.dart";
+import 'package:googleapis_auth/auth_io.dart';
 import 'package:googleapis/calendar/v3.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CalendarClient {
   static const _scopes = const [CalendarApi.calendarScope];
 
-  insert(pickedDate, pickedTime, {title = "Vacunacion"}) {
+  insert(startDate, endDate, {title = "Vacunacion"}) async {
     var _clientID = new ClientId("848978616073-9vjl31h708drv3q77cngvs6pjc0jgj41.apps.googleusercontent.com", "");
     clientViaUserConsent(_clientID, _scopes, prompt).then((AuthClient client) {
       var calendar = CalendarApi(client);
@@ -19,12 +18,12 @@ class CalendarClient {
       event.summary = title;
 
       EventDateTime start = new EventDateTime();
-      start.dateTime = pickedDate;
+      start.dateTime = startDate;
       start.timeZone = "GMT-03:00";
       event.start = start;
 
       EventDateTime end = new EventDateTime();
-      end.dateTime = pickedDate;
+      end.dateTime = endDate;
       end.timeZone = "GMT-03:00";
       event.end = end;
 

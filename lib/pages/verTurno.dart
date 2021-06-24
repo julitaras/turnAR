@@ -24,8 +24,7 @@ class VerTurno extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ReservarTurnos()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => TakeTurn()));
                   // TODO: se tendrían que mandar los datos del turno y cambiar el título general de la view
                 },
                 child: const Text('Editar'),
