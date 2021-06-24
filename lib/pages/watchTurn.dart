@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:app_turnar/pages/reservarTurnos.dart';
+import 'package:app_turnar/pages/saveTurn.dart';
 import 'package:app_turnar/pages/home.dart';
 
 class VerTurno extends StatelessWidget {

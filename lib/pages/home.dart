@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: const Text('VER TURNO'),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => ReservarTurnos()));
+                              builder: (context) => VerTurno()));
                         },
                       ),
                       const SizedBox(width: 8),
@@ -136,7 +136,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _saveTheDate(context);
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => TakeTurn()));
         },
         tooltip: 'Agendar Turno Nuevo',
         child: Icon(Icons.calendar_today),
