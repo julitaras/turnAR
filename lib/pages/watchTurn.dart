@@ -2,8 +2,30 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:app_turnar/pages/saveTurn.dart';
 import 'package:app_turnar/pages/home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class VerTurno extends StatelessWidget {
+class WatchTurn extends StatefulWidget {
+  WatchTurn({Key? key, required User user})
+      : _user = user,
+        super(key: key);
+
+  final String title = 'TurnAr';
+  final User _user;
+
+  @override
+  _WatchTurnState createState() => _WatchTurnState();
+}
+
+class _WatchTurnState extends State<WatchTurn> {
+  late User _user;
+
+  @override
+  void initState() {
+    _user = widget._user;
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +46,8 @@ class VerTurno extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => TakeTurn()));
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => TakeTurn()));
                   // TODO: se tendrían que mandar los datos del turno y cambiar el título general de la view
                 },
                 child: const Text('Editar'),
@@ -52,7 +75,7 @@ class VerTurno extends StatelessWidget {
                                       .pop("Discard");
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) =>
-                                          MyHomePage(title: "TurnAR")));
+                                          MyHomePage(user: _user)));
                                   // TODO: debe eliminar el turno
                                 },
                               ),

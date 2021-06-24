@@ -1,13 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:app_turnar/widgets/sign_out_button.dart';
 import 'package:app_turnar/pages/myTurns.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class UserProfile extends StatefulWidget {
+  const UserProfile({Key? key, required User user})
+      : _user = user,
+        super(key: key);
+
+  final User _user;
+
   @override
   _UserProfileState createState() => _UserProfileState();
 }
 
-class _UserProfileState extends State<StatefulWidget> {
+class _UserProfileState extends State<UserProfile> {
+  late User _user;
+
+  @override
+  void initState() {
+    _user = widget._user;
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,22 +40,49 @@ class _UserProfileState extends State<StatefulWidget> {
                 SizedBox(
                   height: 80,
                 ),
-                Container(
-                  width: 150,
-                  height: 150,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(75),
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              'https://store.playstation.com/store/api/chihiro/00_09_000/container/US/en/999/UP1018-CUSA00133_00-AV00000000000015/1553561653000/image?w=256&h=256&bg_color=000000&opacity=100&_version=00_09_000'))),
-                ),
+                _user.photoURL != null
+                    ? ClipOval(
+                        child: Material(
+                          color: Colors.red,
+                          child: Image.network(
+                            _user.photoURL!,
+                            fit: BoxFit.fitHeight,
+                          ),
+                        ),
+                      )
+                    : ClipOval(
+                        child: Material(
+                          color: Colors.red,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Icon(
+                              Icons.person,
+                              size: 60,
+                              color: Colors.lightGreen,
+                            ),
+                          ),
+                        ),
+                      ),
                 SizedBox(
                   height: 30,
                 ),
                 Text(
-                  'Sonu Sharma',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
+                  _user.displayName!,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 26,
+                  ),
+                ),
+                SizedBox(
+                  height: 70,
+                ),
+                Text(
+                  '( ${_user.email!} )',
+                  style: TextStyle(
+                    color: Colors.orange,
+                    fontSize: 20,
+                    letterSpacing: 0.5,
+                  ),
                 ),
                 SizedBox(
                   height: 70,

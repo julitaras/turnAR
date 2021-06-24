@@ -4,17 +4,30 @@ import 'package:app_turnar/pages/watchTurn.dart';
 import 'package:app_turnar/pages/myTurns.dart';
 import 'package:app_turnar/pages/saveTurn.dart';
 import 'package:app_turnar/pages/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, title}) : super(key: key);
+  MyHomePage({Key? key, title, required User user})
+      : _user = user,
+        super(key: key);
 
   final String title = 'TurnAr';
+  final User _user;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late User _user;
+
+  @override
+  void initState() {
+    _user = widget._user;
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget _upperContainer() {
@@ -24,13 +37,33 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             GestureDetector(
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://store.playstation.com/store/api/chihiro/00_09_000/container/US/en/999/UP1018-CUSA00133_00-AV00000000000015/1553561653000/image?w=256&h=256&bg_color=000000&opacity=100&_version=00_09_000'),
-              ),
+              child: _user.photoURL != null
+                  ? ClipOval(
+                      child: Material(
+                        color: Colors.redAccent,
+                        child: Image.network(
+                          _user.photoURL!,
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
+                    )
+                  : ClipOval(
+                      child: Material(
+                        color: Colors.redAccent,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Icon(
+                            Icons.person,
+                            size: 60,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
+                    ),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => UserProfile()));
+                    builder: (BuildContext context) =>
+                        UserProfile(user: _user)));
               },
             )
           ],
@@ -76,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: const Text('VER TURNO'),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => VerTurno()));
+                              builder: (context) => WatchTurn(user: _user)));
                         },
                       ),
                       const SizedBox(width: 8),

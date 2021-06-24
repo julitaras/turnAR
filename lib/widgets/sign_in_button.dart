@@ -45,7 +45,7 @@ class _SignInButtonState extends State<SignInButton> {
           signInWithGoogle().then((User user) {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => MyHomePage(),
+                builder: (context) => MyHomePage(user: user),
               ),
             );
             // ignore: invalid_return_type_for_catch_error
