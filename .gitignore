@@ -357,3 +357,4 @@ MigrationBackup/
 build
 .flutter-plugins-dependencies
 .flutter-plugins
+/android/.idea/
