@@ -85,7 +85,9 @@ class _MyHomePageState extends State<MyHomePage> {
             Card(
               child: Column(
                 children: <Widget>[
-                  Image.asset('assets/images/vaccinated.png'),
+                  Image.asset('assets/images/vaccinated.png',
+                  height: 200,
+                  fit:BoxFit.fill),
                   const ListTile(
                     title: Text('¡Bienvenido a TurnAR!'),
                     subtitle: Text('Plan de Vacunación COVID-19'),
@@ -94,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Card(
-              margin: const EdgeInsets.only(top: 60.0),
+              margin: const EdgeInsets.only(top: 20.0),
               child: Column(
                 children: <Widget>[
                   const ListTile(title: Text('Próximo Turno:')),
