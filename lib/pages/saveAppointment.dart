@@ -35,16 +35,13 @@ class _TakeTurnPageState extends State<TakeTurnPage> {
     TextStyle? textStyle = Theme.of(context).textTheme.headline6;
     return Scaffold(
         appBar: AppBar(title: const Text("Reservar Turno")),
-        body: SingleChildScrollView(
-            child: Container(
-                margin: EdgeInsets.only(left: 10.0, right: 10.0),
-                padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                child: Form(
+    body: Container(
+        margin: const EdgeInsets.only(left: 10.0, right: 10.0, top: 30.0),
+        child: Form(
                     key: formKey,
-                    child: Column(children: <Widget>[
-                      Container(
-                          margin: EdgeInsets.only(top: 50.0),
-                          child: Row(
+                    child: Column(
+                      children: <Widget>[
+                      Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Expanded(
@@ -71,17 +68,21 @@ class _TakeTurnPageState extends State<TakeTurnPage> {
                                             return "Falta completar el Email";
                                           }
                                         }))
-                              ])),
+                              ]),
                       Container(
-                          margin: EdgeInsets.only(top: 50.0),
+                          margin: EdgeInsets.only(top: 30.0),
                           child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                Expanded(
-                                    child: Text("Elegí Tu Sede:",
+                                Text("Elegí Tu Sede:",
+                                textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontSize: 18,
-                                            fontWeight: FontWeight.bold))),
+                                            fontWeight: FontWeight.bold)),
+                              ])),
+                              Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
                                 Expanded(
                                     child: DropdownButton(
                                   value: selectedSite,
@@ -106,18 +107,23 @@ class _TakeTurnPageState extends State<TakeTurnPage> {
                                     );
                                   }).toList(),
                                 ))
-                              ])),
+                              ]),
                       Container(
-                          margin: EdgeInsets.only(top: 40.0),
+                          margin: EdgeInsets.only(top: 30.0),
                           child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                Expanded(
-                                    child: Text("Elegí Tu Fecha:",
+                                Text("Elegí la Fecha:",
+                                textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontSize: 18,
-                                            fontWeight: FontWeight.bold))),
-                                Expanded(
+                                            fontWeight: FontWeight.bold)),
+                              ])),
+                      Container(
+                          margin: EdgeInsets.only(top: 10.0),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[Expanded(
                                     child: Card(
                                   shadowColor: Colors.lightGreen,
                                   child: ListTile(
@@ -129,48 +135,61 @@ class _TakeTurnPageState extends State<TakeTurnPage> {
                                     trailing: Icon(Icons.arrow_drop_down),
                                     onTap: _pickDate,
                                   ),
-                                ))
-                              ])),
-                      Container(
-                          margin: EdgeInsets.only(top: 40.0),
+                                ))          
+                    ])),
+                    Container(
+                          margin: EdgeInsets.only(top: 30.0),
                           child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                Expanded(
-                                    child: Text("Elegí Tu Hora:",
+                                Text("Elegí la Hora:",
+                                textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontSize: 18,
-                                            fontWeight: FontWeight.bold))),
-                                Expanded(
+                                            fontWeight: FontWeight.bold)),
+                              ])),
+                              Container(
+                          margin: EdgeInsets.only(top: 10.0),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[Expanded(
                                     child: Card(
                                   shadowColor: Colors.lightGreen,
                                   child: ListTile(
-                                    title: Text(_sayTime(),
+                                    title: Text(
+                                        "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontSize: 18, color: Colors.green)),
                                     trailing: Icon(Icons.arrow_drop_down),
-                                    onTap: _pickTime,
+                                    onTap: _pickDate,
                                   ),
-                                ))
-                              ])),
-                      Container(
-                          margin: EdgeInsets.only(top: 70.0),
+                                ))          
+                    ])),
+                    Container(
+                          margin: EdgeInsets.only(top: 30.0),
+                          width: double.infinity,
                           child: ElevatedButton(
-                              child: Text("Agregar a Google Calendar",
+                              child: Text("Guardar",
                                   style: TextStyle(
                                       fontSize: 17,
                                       fontWeight: FontWeight.bold)),
+                              onPressed: () => { /* TODO debe guardar en la base el turno
+                              */})),
+                    Container(
+                          margin: EdgeInsets.only(top: 10.0),
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),),
+                              child: Text("Agregar a Google Calendar",
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,)),
                               onPressed: () => calendarClient.insert(pickedDate,
                                   pickedDate.add(Duration(minutes: 30)))))
-                    ])))),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            log("Email: $emailController // $pickedDate");
-          },
-          tooltip: 'Imprimir fecha',
-          child: Icon(Icons.calendar_today),
-        ));
+                    ])
+                    ))
+    );
   }
 
   _pickDate() async {
