@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:app_turnar/widgets/sign_out_button.dart';
 import 'package:app_turnar/pages/myAppointments.dart';
+import 'package:app_turnar/widgets/sign_out_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key, required User user})

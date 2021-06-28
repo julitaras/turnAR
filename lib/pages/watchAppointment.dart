@@ -1,8 +1,8 @@
+import 'package:app_turnar/pages/home.dart';
+import 'package:app_turnar/pages/saveAppointment.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:app_turnar/pages/saveAppointment.dart';
-import 'package:app_turnar/pages/home.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class WatchAppointment extends StatefulWidget {
   WatchAppointment({Key? key, required User user})
