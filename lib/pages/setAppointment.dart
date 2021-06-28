@@ -46,7 +46,7 @@ class _SetAppointmentState extends State<SetAppointment> {
           title: Text("Reservar Turno"),
         ),
         body: Container(
-            margin: const EdgeInsets.only(left: 10.0, right: 10.0, top: 30.0),
+            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
             child: Form(
                 key: formKey,
                 child: Column(children: <Widget>[
