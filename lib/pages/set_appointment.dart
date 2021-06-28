@@ -17,17 +17,17 @@ class SetAppointment extends StatefulWidget {
 class _SetAppointmentState extends State<SetAppointment> {
   late User _user;
 
-  DateTime pickedDate = DateTime.now();
-  TimeOfDay pickedTime = TimeOfDay.now();
-  GlobalKey formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
-  List<String> sites = [
+  DateTime _pickedDate = DateTime.now();
+  TimeOfDay _pickedTime = TimeOfDay.now();
+  GlobalKey _formKey = GlobalKey<FormState>();
+  TextEditingController _emailController = TextEditingController();
+  List<String> _sites = [
     'Hospital de Clínicas',
     'Hospital Fernández',
     'Hospital Garrahan',
     'Hospital Rivadavia'
   ];
-  String selectedSite = 'Hospital Rivadavia';
+  String _selectedSite = 'Hospital Rivadavia';
   String emailValue = '';
   CalendarClient calendarClient = CalendarClient();
 
@@ -36,7 +36,7 @@ class _SetAppointmentState extends State<SetAppointment> {
     _user = widget._user;
 
     super.initState();
-    emailController.text = _user.email!;
+    _emailController.text = _user.email!;
   }
 
   @override
@@ -49,14 +49,14 @@ class _SetAppointmentState extends State<SetAppointment> {
         body: Container(
             margin: const EdgeInsets.only(left: 10.0, right: 10.0, top: 30.0),
             child: Form(
-                key: formKey,
+                key: _formKey,
                 child: Column(children: <Widget>[
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Expanded(
                             child: TextFormField(
-                                controller: emailController,
+                                controller: _emailController,
                                 onSaved: (value) {
                                   emailValue = value!;
                                 },
@@ -92,7 +92,7 @@ class _SetAppointmentState extends State<SetAppointment> {
                       children: <Widget>[
                         Expanded(
                             child: DropdownButton(
-                          value: selectedSite,
+                          value: _selectedSite,
                           icon: const Icon(Icons.arrow_drop_down),
                           iconSize: 16,
                           elevation: 16,
@@ -103,10 +103,10 @@ class _SetAppointmentState extends State<SetAppointment> {
                           ),
                           onChanged: (String? newValue) {
                             setState(() {
-                              selectedSite = newValue!;
+                              _selectedSite = newValue!;
                             });
                           },
-                          items: sites.map((String value) {
+                          items: _sites.map((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child:
@@ -135,7 +135,7 @@ class _SetAppointmentState extends State<SetAppointment> {
                               shadowColor: Colors.lightGreen,
                               child: ListTile(
                                 title: Text(
-                                    "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}",
+                                    "${_pickedDate.day}/${_pickedDate.month}/${_pickedDate.year}",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 18, color: Colors.green)),
@@ -164,7 +164,7 @@ class _SetAppointmentState extends State<SetAppointment> {
                               shadowColor: Colors.lightGreen,
                               child: ListTile(
                                 title: Text(
-                                    "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}",
+                                    "${_pickedDate.day}/${_pickedDate.month}/${_pickedDate.year}",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 18, color: Colors.green)),
@@ -182,7 +182,7 @@ class _SetAppointmentState extends State<SetAppointment> {
                                   fontSize: 17, fontWeight: FontWeight.bold)),
                           onPressed: () => {
                                 AppointmentService()
-                                    .createData(_user, pickedDate, selectedSite)
+                                    .createData(_user, _pickedDate, _selectedSite)
                                 /* TODO debe guardar en la base el turno
                               */
                               })),
@@ -200,32 +200,32 @@ class _SetAppointmentState extends State<SetAppointment> {
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
                               )),
-                          onPressed: () => calendarClient.insert(pickedDate,
-                              pickedDate.add(Duration(minutes: 30)))))
+                          onPressed: () => calendarClient.insert(_pickedDate,
+                              _pickedDate.add(Duration(minutes: 30)))))
                 ]))));
   }
 
   _pickDate() async {
     final date = await showDatePicker(
         context: context,
-        initialDate: pickedDate,
+        initialDate: _pickedDate,
         firstDate: DateTime(DateTime.now().year),
         lastDate: DateTime(DateTime.now().year + 1));
 
     if (date != null) {
       setState(() {
-        pickedDate = date;
+        _pickedDate = date;
       });
     }
   }
 
   String _sayTime() {
-    String _hour = "${pickedDate.hour}";
-    String _minute = "${pickedDate.minute}";
-    if (pickedDate.hour < 10) {
+    String _hour = "${_pickedDate.hour}";
+    String _minute = "${_pickedDate.minute}";
+    if (_pickedDate.hour < 10) {
       _hour = "0" + _hour;
     }
-    if (pickedDate.minute < 10) {
+    if (_pickedDate.minute < 10) {
       _minute = "0" + _minute;
     }
     return _hour + ":" + _minute;
@@ -234,13 +234,13 @@ class _SetAppointmentState extends State<SetAppointment> {
   _pickTime() async {
     final time = await showTimePicker(
       context: context,
-      initialTime: pickedTime,
+      initialTime: _pickedTime,
     );
 
     if (time != null) {
       setState(() {
         Duration t = Duration(hours: time.hour, minutes: time.minute);
-        pickedDate = pickedDate.add(t);
+        _pickedDate = _pickedDate.add(t);
       });
     }
   }
