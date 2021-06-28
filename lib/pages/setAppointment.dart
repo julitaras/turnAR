@@ -1,7 +1,6 @@
+import 'package:app_turnar/api/calendarClient.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../api/calendarClient.dart';
 
 class SetAppointment extends StatefulWidget {
   SetAppointment({Key? key, required User user})

@@ -1,5 +1,5 @@
 import 'package:app_turnar/pages/myAppointments.dart';
-import 'package:app_turnar/pages/saveAppointment.dart';
+import 'package:app_turnar/pages/setAppointment.dart';
 import 'package:app_turnar/pages/user.dart';
 import 'package:app_turnar/pages/watchAppointment.dart';
 import 'package:firebase_auth/firebase_auth.dart';
