@@ -176,6 +176,7 @@ class _TakeTurnPageState extends State<TakeTurnPage> {
                                       fontWeight: FontWeight.bold)),
                               onPressed: () => { /* TODO debe guardar en la base el turno
                               */})),
+                    // TODO el boton de Calendar debe ir en VerTurno
                     Container(
                           margin: EdgeInsets.only(top: 10.0),
                           width: double.infinity,
