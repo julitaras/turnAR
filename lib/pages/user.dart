@@ -92,8 +92,8 @@ class _UserProfileState extends State<UserProfile> {
                   child: InkWell(
                     splashColor: Colors.blue.withAlpha(30),
                     onTap: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => MyAppointments()));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => MyAppointments()));
                     },
                     child: const SizedBox(
                       width: 600,

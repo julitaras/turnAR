@@ -1,5 +1,5 @@
 import 'package:app_turnar/pages/myAppointments.dart';
-import 'package:app_turnar/pages/saveAppointment.dart';
+import 'package:app_turnar/pages/setAppointment.dart';
 import 'package:app_turnar/pages/user.dart';
 import 'package:app_turnar/pages/watchAppointment.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -86,8 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 children: <Widget>[
                   Image.asset('assets/images/vaccinated.png',
-                  height: 200,
-                  fit:BoxFit.fill),
+                      height: 200, fit: BoxFit.fill),
                   const ListTile(
                     title: Text('¡Bienvenido a TurnAR!'),
                     subtitle: Text('Plan de Vacunación COVID-19'),
@@ -111,7 +110,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: const Text('VER TURNO'),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => WatchAppointment(user: _user)));
+                              builder: (context) =>
+                                  WatchAppointment(user: _user)));
                         },
                       ),
                       const SizedBox(width: 8),
@@ -125,8 +125,8 @@ class _MyHomePageState extends State<MyHomePage> {
               child: InkWell(
                 splashColor: Colors.blue.withAlpha(30),
                 onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) => MyAppointments()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => MyAppointments()));
                 },
                 child: const SizedBox(
                   width: 600,
@@ -143,8 +143,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => TakeTurn(user: _user,)));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => SetAppointment(
+                    user: _user,
+                  )));
         },
         tooltip: 'Agendar Turno Nuevo',
         child: Icon(Icons.calendar_today),
