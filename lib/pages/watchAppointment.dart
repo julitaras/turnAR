@@ -47,7 +47,7 @@ class _WatchAppointmentState extends State<WatchAppointment> {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => TakeTurn(user: _user)));
+                      MaterialPageRoute(builder: (context) => SetAppointment(user: _user)));
                   // TODO: se tendrían que mandar los datos del turno y cambiar el título general de la view
                 },
                 child: const Text('Editar'),
