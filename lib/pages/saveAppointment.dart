@@ -1,8 +1,7 @@
-import 'dart:developer';
-
-import 'package:flutter/material.dart';
-import '../api/calendarClient.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+
+import '../api/calendarClient.dart';
 
 class SetAppointment extends StatefulWidget {
   SetAppointment({Key? key, required User user})
@@ -18,19 +17,19 @@ class SetAppointment extends StatefulWidget {
 class _SetAppointmentState extends State<SetAppointment> {
   late User _user;
 
-      DateTime pickedDate = DateTime.now();
-    TimeOfDay pickedTime = TimeOfDay.now();
-    GlobalKey formKey = GlobalKey<FormState>();
-    TextEditingController emailController = TextEditingController();
-    List<String> sites = [
-      'Hospital de Clínicas',
-      'Hospital Fernández',
-      'Hospital Garrahan',
-      'Hospital Rivadavia'
-    ];
-    String selectedSite = 'Hospital Rivadavia';
-    String emailValue = '';
-    CalendarClient calendarClient = CalendarClient();
+  DateTime pickedDate = DateTime.now();
+  TimeOfDay pickedTime = TimeOfDay.now();
+  GlobalKey formKey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
+  List<String> sites = [
+    'Hospital de Clínicas',
+    'Hospital Fernández',
+    'Hospital Garrahan',
+    'Hospital Rivadavia'
+  ];
+  String selectedSite = 'Hospital Rivadavia';
+  String emailValue = '';
+  CalendarClient calendarClient = CalendarClient();
 
   @override
   void initState() {
