@@ -1,7 +1,7 @@
-import 'package:app_turnar/pages/myAppointments.dart';
-import 'package:app_turnar/pages/setAppointment.dart';
+import 'package:app_turnar/pages/my_appointments.dart';
+import 'package:app_turnar/pages/set_appointment.dart';
 import 'package:app_turnar/pages/user.dart';
-import 'package:app_turnar/pages/watchAppointment.dart';
+import 'package:app_turnar/pages/watch_appointment.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:app_turnar/pages/myAppointments.dart';
+import 'package:app_turnar/pages/my_appointments.dart';
 import 'package:app_turnar/widgets/sign_out_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

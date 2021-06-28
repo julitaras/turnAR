@@ -1,7 +1,7 @@
 import 'package:app_turnar/api/calendarClient.dart';
+import 'package:app_turnar/services/appointment_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:app_turnar/services/appointment_service.dart';
 
 class SetAppointment extends StatefulWidget {
   SetAppointment({Key? key, required User user})
@@ -181,7 +181,8 @@ class _SetAppointmentState extends State<SetAppointment> {
                               style: TextStyle(
                                   fontSize: 17, fontWeight: FontWeight.bold)),
                           onPressed: () => {
-                            AppointmentService().createData(_user, pickedDate)
+                                AppointmentService()
+                                    .createData(_user, pickedDate, selectedSite)
                                 /* TODO debe guardar en la base el turno
                               */
                               })),

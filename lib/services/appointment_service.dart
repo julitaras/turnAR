@@ -5,14 +5,15 @@ import 'package:uuid/uuid.dart';
 class AppointmentService {
   final databaseReference = FirebaseDatabase.instance.reference();
 
-  void createData(User _user, DateTime _pickedDate) {
+  void createData(User _user, DateTime _pickedDate, String _selectedSite) {
     var uuid = Uuid();
 
     final appointmentsRef = databaseReference.child("appointments");
     appointmentsRef.child(uuid.v1()).set({
       'user': _user.email,
-      'timestamp': 'test', //TODO: Unhandled Exception: Invalid argument: Instance of 'DateTime'
-      'headquarters': 'River'
+      'timestamp': 'test',
+      //TODO: Unhandled Exception: Invalid argument: Instance of 'DateTime'
+      'site': _selectedSite
     });
   }
 
