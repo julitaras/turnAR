@@ -162,13 +162,12 @@ class _SetAppointmentState extends State<SetAppointment> {
                                 child: Card(
                               shadowColor: Colors.lightGreen,
                               child: ListTile(
-                                title: Text(
-                                    "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 18, color: Colors.green)),
-                                trailing: Icon(Icons.arrow_drop_down),
-                                onTap: _pickDate,
+                                title: Text(_sayTime(),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 18, color: Colors.green)),
+                                    trailing: Icon(Icons.arrow_drop_down),
+                                    onTap: _pickTime,
                               ),
                             ))
                           ])),
