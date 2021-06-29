@@ -146,6 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => SetAppointment(
                     user: _user,
+                    titulo: "Reservar Turno"
                   )));
         },
         tooltip: 'Agendar Turno Nuevo',

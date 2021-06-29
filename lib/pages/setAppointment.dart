@@ -3,11 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SetAppointment extends StatefulWidget {
-  SetAppointment({Key? key, required User user})
+  SetAppointment({Key? key, required User user, required String titulo})
       : _user = user,
+      _titulo = titulo,
         super(key: key);
 
   final User _user;
+  final String _titulo;
 
   @override
   _SetAppointmentState createState() => _SetAppointmentState();
@@ -15,6 +17,7 @@ class SetAppointment extends StatefulWidget {
 
 class _SetAppointmentState extends State<SetAppointment> {
   late User _user;
+  late String _titulo;
 
   DateTime pickedDate = DateTime.now();
   TimeOfDay pickedTime = TimeOfDay.now();
@@ -29,22 +32,23 @@ class _SetAppointmentState extends State<SetAppointment> {
   String selectedSite = 'Hospital Rivadavia';
   String emailValue = '';
   CalendarClient calendarClient = CalendarClient();
+  AppBar appBarAppointment = AppBar();
 
   @override
   void initState() {
     _user = widget._user;
+    _titulo = widget._titulo;
 
     super.initState();
     emailController.text = _user.email!;
+    
   }
 
   @override
   Widget build(BuildContext context) {
     TextStyle? textStyle = Theme.of(context).textTheme.headline6;
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Reservar Turno"),
-        ),
+        appBar: AppBar(title: Text(_titulo),),
         body: Container(
             margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
             child: Form(
