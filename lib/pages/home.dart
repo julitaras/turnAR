@@ -1,10 +1,11 @@
 import 'package:app_turnar/pages/myAppointments.dart';
 import 'package:app_turnar/pages/setAppointment.dart';
+import 'package:app_turnar/pages/showAppointment.dart';
 import 'package:app_turnar/pages/user.dart';
-import 'package:app_turnar/pages/watchAppointment.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../Data/appointment.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, title, required User user})
@@ -13,6 +14,8 @@ class MyHomePage extends StatefulWidget {
 
   final String title = 'TurnAr';
   final User _user;
+  //TODO deberia mostrar el turno más cercano de los que trae de la DB
+  final Appointment closestAppointment = Appointment( date: new DateTime.utc(2021, 7, 3), time: new TimeOfDay(hour: 15, minute: 0), description: "Primera Dosis".toUpperCase());
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -20,12 +23,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late User _user;
+  late Appointment closestAppointment;
 
   @override
   void initState() {
     _user = widget._user;
+    closestAppointment = widget.closestAppointment;
 
-    super.initState();
+  super.initState();
   }
 
   @override
@@ -101,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   const ListTile(title: Text('Próximo Turno:')),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[Text('25 de Julio, 08:45hs')],
+                    children: <Widget>[Text(closestAppointment.dateTimeString)],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -111,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
-                                  WatchAppointment(user: _user)));
+                                  ShowAppointment(user: _user, appointment: closestAppointment))).then((_) => setState(() {}));
                         },
                       ),
                       const SizedBox(width: 8),
