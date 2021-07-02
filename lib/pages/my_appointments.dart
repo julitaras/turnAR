@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:app_turnar/services/appointment_service.dart';
 
 class MyAppointments extends StatelessWidget {
   @override
@@ -70,5 +71,9 @@ class MyAppointments extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+  _loadAppointments() async {
+    AppointmentService().getAllAppointments();
   }
 }

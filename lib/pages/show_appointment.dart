@@ -1,27 +1,31 @@
+import 'package:app_turnar/Data/appointment.dart';
 import 'package:app_turnar/pages/home.dart';
 import 'package:app_turnar/pages/set_appointment.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class WatchAppointment extends StatefulWidget {
-  WatchAppointment({Key? key, required User user})
-      : _user = user,
+class ShowAppointment extends StatefulWidget {
+  ShowAppointment({Key? key, required User user, required Appointment appointment})
+      : _user = user, _appointment = appointment,
         super(key: key);
 
   final String title = 'TurnAr';
   final User _user;
+  final Appointment _appointment;
 
   @override
-  _WatchAppointmentState createState() => _WatchAppointmentState();
+  _ShowAppointmentState createState() => _ShowAppointmentState();
 }
 
-class _WatchAppointmentState extends State<WatchAppointment> {
+class _ShowAppointmentState extends State<ShowAppointment> {
   late User _user;
+  late Appointment _appointment;
 
   @override
   void initState() {
     _user = widget._user;
+    _appointment = widget._appointment;
 
     super.initState();
   }
@@ -37,8 +41,8 @@ class _WatchAppointmentState extends State<WatchAppointment> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            const ListTile(
-              title: Text('25 de Julio, 08.45hs'),
+            ListTile(
+              title: Text( _appointment.dateTimeString),
               subtitle: Text('PRIMERA DOSIS'),
             ),
             Container(
@@ -47,7 +51,7 @@ class _WatchAppointmentState extends State<WatchAppointment> {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => SetAppointment(user: _user)));
+                      builder: (context) => SetAppointment(user: _user, titulo: "Editar Turno", appointment: _appointment,))).then((_) => setState(() {}));
                   // TODO: se tendrían que mandar los datos del turno y cambiar el título general de la view
                 },
                 child: const Text('Editar'),

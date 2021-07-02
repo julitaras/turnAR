@@ -1,5 +1,9 @@
 import 'package:app_turnar/api/calendarClient.dart';
+<<<<<<< HEAD:lib/pages/set_appointment.dart
+import 'package:app_turnar/services/appointment_service.dart';
+=======
 import 'package:app_turnar/pages/showAppointment.dart';
+>>>>>>> 86e123ccc34519bd1b110440a6bfce762bf27862:lib/pages/setAppointment.dart
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,17 +29,25 @@ class _SetAppointmentState extends State<SetAppointment> {
   late String _titulo;
   late Appointment _appointment;
 
+<<<<<<< HEAD:lib/pages/set_appointment.dart
+  DateTime _pickedDate = DateTime.now();
+  TimeOfDay _pickedTime = TimeOfDay.now();
+  GlobalKey _formKey = GlobalKey<FormState>();
+  TextEditingController _emailController = TextEditingController();
+  List<String> _sites = [
+=======
   late DateTime pickedDate;
   late TimeOfDay pickedTime;
   GlobalKey formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   List<String> sites = [
+>>>>>>> 86e123ccc34519bd1b110440a6bfce762bf27862:lib/pages/setAppointment.dart
     'Hospital de Clínicas',
     'Hospital Fernández',
     'Hospital Garrahan',
     'Hospital Rivadavia'
   ];
-  String selectedSite = 'Hospital Rivadavia';
+  String _selectedSite = 'Hospital Rivadavia';
   String emailValue = '';
   CalendarClient calendarClient = CalendarClient();
   AppBar appBarAppointment = AppBar();
@@ -49,8 +61,12 @@ class _SetAppointmentState extends State<SetAppointment> {
     pickedTime = _appointment.time;
 
     super.initState();
+<<<<<<< HEAD:lib/pages/set_appointment.dart
+    _emailController.text = _user.email!;
+=======
     emailController.text = _user.email!;
     
+>>>>>>> 86e123ccc34519bd1b110440a6bfce762bf27862:lib/pages/setAppointment.dart
   }
 
   @override
@@ -61,14 +77,14 @@ class _SetAppointmentState extends State<SetAppointment> {
         body: Container(
             margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
             child: Form(
-                key: formKey,
+                key: _formKey,
                 child: Column(children: <Widget>[
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Expanded(
                             child: TextFormField(
-                                controller: emailController,
+                                controller: _emailController,
                                 onSaved: (value) {
                                   emailValue = value!;
                                 },
@@ -104,7 +120,7 @@ class _SetAppointmentState extends State<SetAppointment> {
                       children: <Widget>[
                         Expanded(
                             child: DropdownButton(
-                          value: selectedSite,
+                          value: _selectedSite,
                           icon: const Icon(Icons.arrow_drop_down),
                           iconSize: 16,
                           elevation: 16,
@@ -115,10 +131,10 @@ class _SetAppointmentState extends State<SetAppointment> {
                           ),
                           onChanged: (String? newValue) {
                             setState(() {
-                              selectedSite = newValue!;
+                              _selectedSite = newValue!;
                             });
                           },
-                          items: sites.map((String value) {
+                          items: _sites.map((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child:
@@ -147,7 +163,7 @@ class _SetAppointmentState extends State<SetAppointment> {
                               shadowColor: Colors.lightGreen,
                               child: ListTile(
                                 title: Text(
-                                    "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}",
+                                    "${_pickedDate.day}/${_pickedDate.month}/${_pickedDate.year}",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 18, color: Colors.green)),
@@ -175,12 +191,22 @@ class _SetAppointmentState extends State<SetAppointment> {
                                 child: Card(
                               shadowColor: Colors.lightGreen,
                               child: ListTile(
+<<<<<<< HEAD:lib/pages/set_appointment.dart
+                                title: Text(
+                                    "${_pickedDate.day}/${_pickedDate.month}/${_pickedDate.year}",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 18, color: Colors.green)),
+                                trailing: Icon(Icons.arrow_drop_down),
+                                onTap: _pickDate,
+=======
                                 title: Text(_sayTime(),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontSize: 18, color: Colors.green)),
                                     trailing: Icon(Icons.arrow_drop_down),
                                     onTap: _pickTime,
+>>>>>>> 86e123ccc34519bd1b110440a6bfce762bf27862:lib/pages/setAppointment.dart
                               ),
                             ))
                           ])),
@@ -192,6 +218,29 @@ class _SetAppointmentState extends State<SetAppointment> {
                               style: TextStyle(
                                   fontSize: 17, fontWeight: FontWeight.bold)),
                           onPressed: () => {
+<<<<<<< HEAD:lib/pages/set_appointment.dart
+                                AppointmentService()
+                                    .createData(_user, _pickedDate, _selectedSite)
+                                /* TODO debe guardar en la base el turno
+                              */
+                              })),
+                  // TODO el boton de Calendar debe ir en VerTurno
+                  Container(
+                      margin: EdgeInsets.only(top: 10.0),
+                      width: double.infinity,
+                      child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.blue),
+                          ),
+                          child: Text("Agregar a Google Calendar",
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              )),
+                          onPressed: () => calendarClient.insert(_pickedDate,
+                              _pickedDate.add(Duration(minutes: 30)))))
+=======
                                 _appointment.date = pickedDate,
                                 _appointment.time = pickedTime,
                                 // TODO aquí debería guardar el appointment en DB
@@ -219,24 +268,36 @@ class _SetAppointmentState extends State<SetAppointment> {
                   //             )),
                   //         onPressed: () => calendarClient.insert(pickedDate,
                   //             pickedDate.add(Duration(minutes: 30)))))
+>>>>>>> 86e123ccc34519bd1b110440a6bfce762bf27862:lib/pages/setAppointment.dart
                 ]))));
   }
 
   _pickDate() async {
     final date = await showDatePicker(
         context: context,
-        initialDate: pickedDate,
+        initialDate: _pickedDate,
         firstDate: DateTime(DateTime.now().year),
         lastDate: DateTime(DateTime.now().year + 1));
 
     if (date != null) {
       setState(() {
-        pickedDate = date;
+        _pickedDate = date;
       });
     }
   }
 
   String _sayTime() {
+<<<<<<< HEAD:lib/pages/set_appointment.dart
+    String _hour = "${_pickedDate.hour}";
+    String _minute = "${_pickedDate.minute}";
+    if (_pickedDate.hour < 10) {
+      _hour = "0" + _hour;
+    }
+    if (_pickedDate.minute < 10) {
+      _minute = "0" + _minute;
+    }
+    return _hour + ":" + _minute;
+=======
     
     var hourString =  pickedTime.hour.toString();
     var minuteString = "";
@@ -246,19 +307,24 @@ class _SetAppointmentState extends State<SetAppointment> {
     minuteString += pickedTime.minute.toString();
 
     return hourString + ":" + minuteString;
+>>>>>>> 86e123ccc34519bd1b110440a6bfce762bf27862:lib/pages/setAppointment.dart
   }
 
   _pickTime() async {
     final time = await showTimePicker(
       context: context,
-      initialTime: pickedTime,
+      initialTime: _pickedTime,
     );
 
     if (time != null) {
       setState(() {
         Duration t = Duration(hours: time.hour, minutes: time.minute);
+<<<<<<< HEAD:lib/pages/set_appointment.dart
+        _pickedDate = _pickedDate.add(t);
+=======
         pickedDate = pickedDate.add(t);
         pickedTime = TimeOfDay(hour: time.hour, minute: time.minute);
+>>>>>>> 86e123ccc34519bd1b110440a6bfce762bf27862:lib/pages/setAppointment.dart
       });
     }
   }
