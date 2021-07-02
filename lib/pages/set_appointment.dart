@@ -1,15 +1,23 @@
 import 'package:app_turnar/api/calendarClient.dart';
-import 'package:app_turnar/pages/showAppointment.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import '../Data/appointment.dart';
 
 class SetAppointment extends StatefulWidget {
-  SetAppointment({Key? key, required User user, required String titulo, Appointment? appointment})
+  SetAppointment(
+      {Key? key,
+      required User user,
+      required String titulo,
+      Appointment? appointment})
       : _user = user,
-      _titulo = titulo,
-      _appointment = appointment != null ? appointment : new Appointment(date: DateTime.now(), time: TimeOfDay.now(), description: ""), // TODO se debe chequear la cantidad de dosis que tienen el usuario para poder asignar primera o segunda dosis según corresponda al sacar un nuevo turno
+        _titulo = titulo,
+        _appointment = appointment != null
+            ? appointment
+            : new Appointment(
+                date: DateTime.now(), time: TimeOfDay.now(), description: ""),
+        // TODO se debe chequear la cantidad de dosis que tienen el usuario para poder asignar primera o segunda dosis según corresponda al sacar un nuevo turno
         super(key: key);
 
   final User _user;
@@ -50,14 +58,15 @@ class _SetAppointmentState extends State<SetAppointment> {
 
     super.initState();
     emailController.text = _user.email!;
-    
   }
 
   @override
   Widget build(BuildContext context) {
     TextStyle? textStyle = Theme.of(context).textTheme.headline6;
     return Scaffold(
-        appBar: AppBar(title: Text(_titulo),),
+        appBar: AppBar(
+          title: Text(_titulo),
+        ),
         body: Container(
             margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
             child: Form(
@@ -176,11 +185,11 @@ class _SetAppointmentState extends State<SetAppointment> {
                               shadowColor: Colors.lightGreen,
                               child: ListTile(
                                 title: Text(_sayTime(),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 18, color: Colors.green)),
-                                    trailing: Icon(Icons.arrow_drop_down),
-                                    onTap: _pickTime,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 18, color: Colors.green)),
+                                trailing: Icon(Icons.arrow_drop_down),
+                                onTap: _pickTime,
                               ),
                             ))
                           ])),
@@ -195,13 +204,13 @@ class _SetAppointmentState extends State<SetAppointment> {
                                 _appointment.date = pickedDate,
                                 _appointment.time = pickedTime,
                                 // TODO aquí debería guardar el appointment en DB
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                behavior: SnackBarBehavior.floating,
-                                content: Text('Turno Guardado'),
-                                backgroundColor: Colors.green,
-                              )),
-                              Navigator.pop(context),
-                                
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(
+                                  behavior: SnackBarBehavior.floating,
+                                  content: Text('Turno Guardado'),
+                                  backgroundColor: Colors.green,
+                                )),
+                                Navigator.pop(context),
                               })),
                   // TODO el boton de Calendar debe ir en VerTurno
                   // Container(
@@ -237,10 +246,9 @@ class _SetAppointmentState extends State<SetAppointment> {
   }
 
   String _sayTime() {
-    
-    var hourString =  pickedTime.hour.toString();
+    var hourString = pickedTime.hour.toString();
     var minuteString = "";
-    if (pickedTime.minute < 10){
+    if (pickedTime.minute < 10) {
       minuteString += '0';
     }
     minuteString += pickedTime.minute.toString();
