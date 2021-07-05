@@ -9,7 +9,7 @@ class SetAppointment extends StatefulWidget {
   SetAppointment({Key? key, required User user, required String titulo, Appointment? appointment})
       : _user = user,
       _titulo = titulo,
-      _appointment = appointment != null ? appointment : new Appointment(date: DateTime.now(), time: TimeOfDay.now(), description: ""), // TODO se debe chequear la cantidad de dosis que tienen el usuario para poder asignar primera o segunda dosis según corresponda al sacar un nuevo turno
+      _appointment = appointment != null ? appointment : new Appointment(date: DateTime.now(), time: TimeOfDay.now(), description: "PRIMERA DOSIS", hospital: 'Hospital de Clínicas'), // TODO se debe chequear la cantidad de dosis que tienen el usuario para poder asignar primera o segunda dosis según corresponda al sacar un nuevo turno
         super(key: key);
 
   final User _user;
@@ -36,6 +36,14 @@ class _SetAppointmentState extends State<SetAppointment> {
     'Hospital Rivadavia'
   ];
   String selectedSite = 'Hospital Rivadavia';
+
+  List<String> reasons = [
+    'PRIMERA DOSIS',
+    'SEGUNDA DOSIS',
+    'CHEQUEO'
+  ];
+  String selectedReason = "PRIMERA DOSIS";
+
   String emailValue = '';
   CalendarClient calendarClient = CalendarClient();
   AppBar appBarAppointment = AppBar();
@@ -47,6 +55,8 @@ class _SetAppointmentState extends State<SetAppointment> {
     _appointment = widget._appointment;
     pickedDate = _appointment.date;
     pickedTime = _appointment.time;
+    selectedReason = _appointment.description;
+    selectedSite = _appointment.hospital;
 
     super.initState();
     emailController.text = _user.email!;
@@ -90,6 +100,45 @@ class _SetAppointmentState extends State<SetAppointment> {
                                 }))
                       ]),
                   Container(
+                      margin: EdgeInsets.only(top: 30.0),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Text("Concepto:",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                          ])),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                            child: DropdownButton(
+                          value: selectedReason,
+                          icon: const Icon(Icons.arrow_drop_down),
+                          iconSize: 16,
+                          elevation: 16,
+                          style: const TextStyle(color: Colors.green),
+                          underline: Container(
+                            height: 2,
+                            color: Colors.green,
+                          ),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              selectedReason = newValue!;
+                              _appointment.description = newValue;
+                            });
+                          },
+                          items: reasons.map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child:
+                                  Text(value, style: TextStyle(fontSize: 18)),
+                            );
+                          }).toList(),
+                        ))
+                      ]),
+                      Container(
                       margin: EdgeInsets.only(top: 30.0),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,

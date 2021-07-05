@@ -7,13 +7,15 @@ class Appointment {
   DateTime _date;
   TimeOfDay _time;
   String _description;
+  String _hospital;
 
   var _weekday = {'Monday': 'Lunes', 'Tuesday': 'Martes', 'Wednesday': 'Miércoles', 'Thrusday': 'Jueves', 'Friday' : 'Viernes', 'Saturday' : 'Sábado', 'Sunday': 'Domingo'};
 
-  Appointment({required date, required time, required description}):
+  Appointment({required date, required time, required description, required hospital}):
   this._date = date,
   this._time = time,
-  this._description = description;
+  this._description = description,
+  this._hospital = hospital;
 
 // GETTERS
 
@@ -37,6 +39,9 @@ class Appointment {
   String get description {
     return this._description;
   }
+  String get hospital {
+    return this._hospital;
+  }
 
   String get dateTimeString {
     return this.dateString + ', ' + this.timeString;
@@ -52,6 +57,9 @@ class Appointment {
   void set description(String description) {
     _description = description;
   }
+  void set hospital(String hospital) {
+      _hospital = hospital;
+    }
 
   String formatTimeOfDay(TimeOfDay tod) {
     final now = new DateTime.now();

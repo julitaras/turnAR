@@ -44,7 +44,7 @@ class _ShowAppointmentState extends State<ShowAppointment> {
           children: <Widget>[
             ListTile(
               title: Text( _appointment.dateTimeString),
-              subtitle: Text('PRIMERA DOSIS'),
+              subtitle: Text(_appointment.description + " - " + _appointment.hospital),
             ),
             Container(
               margin: const EdgeInsets.only(top: 20.0),
@@ -76,6 +76,11 @@ class _ShowAppointmentState extends State<ShowAppointment> {
                                 child: Text('Aceptar'),
                                 isDefaultAction: true,
                                 onPressed: () {
+                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                behavior: SnackBarBehavior.floating,
+                                content: Text('Turno Eliminado'),
+                                backgroundColor: Colors.red,
+                              ));
                                   Navigator.of(context, rootNavigator: true)
                                       .pop("Discard");
                                   Navigator.of(context).push(MaterialPageRoute(
