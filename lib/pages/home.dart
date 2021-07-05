@@ -15,7 +15,7 @@ class MyHomePage extends StatefulWidget {
   final String title = 'TurnAr';
   final User _user;
   //TODO deberia mostrar el turno más cercano de los que trae de la DB
-  final Appointment closestAppointment = Appointment( date: new DateTime.utc(2021, 7, 3), time: new TimeOfDay(hour: 15, minute: 0), description: "Primera Dosis".toUpperCase());
+  final Appointment closestAppointment = Appointment( date: new DateTime.utc(2021, 7, 23), time: new TimeOfDay(hour: 15, minute: 0), description: "Primera Dosis".toUpperCase());
 
   @override
   _MyHomePageState createState() => _MyHomePageState();

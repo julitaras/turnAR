@@ -15,6 +15,12 @@ class MyAppointments extends StatelessWidget {
             children: <Widget>[
               Card(
                 margin: const EdgeInsets.all(10),
+                child: InkWell(
+                splashColor: Colors.blue.withAlpha(30),
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => MyAppointments()));
+                },
                 child: Padding(
                   padding: EdgeInsets.all(16.0),
                   child: Column(
@@ -31,8 +37,15 @@ class MyAppointments extends StatelessWidget {
                   ),
                 ),
               ),
+              ),
               Card(
                 margin: const EdgeInsets.all(10),
+                child: InkWell(
+                splashColor: Colors.blue.withAlpha(30),
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => MyAppointments()));
+                },
                 child: Padding(
                   padding: EdgeInsets.all(16.0),
                   child: Column(
@@ -48,9 +61,15 @@ class MyAppointments extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
+              ),),
               Card(
                 margin: const EdgeInsets.all(10),
+                child: InkWell(
+                splashColor: Colors.blue.withAlpha(30),
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => MyAppointments()));
+                },
                 child: Padding(
                   padding: EdgeInsets.all(18.0),
                   child: Column(
@@ -66,7 +85,7 @@ class MyAppointments extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
+              ),),
             ],
           ),
         ));
