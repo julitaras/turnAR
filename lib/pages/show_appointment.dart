@@ -3,6 +3,7 @@ import 'package:app_turnar/pages/home.dart';
 import 'package:app_turnar/pages/set_appointment.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:app_turnar/api/calendarClient.dart';
 import 'package:flutter/material.dart';
 
 class ShowAppointment extends StatefulWidget {
@@ -43,7 +44,7 @@ class _ShowAppointmentState extends State<ShowAppointment> {
           children: <Widget>[
             ListTile(
               title: Text( _appointment.dateTimeString),
-              subtitle: Text('PRIMERA DOSIS'),
+              subtitle: Text(_appointment.description + " - " + _appointment.hospital),
             ),
             Container(
               margin: const EdgeInsets.only(top: 20.0),
@@ -75,6 +76,11 @@ class _ShowAppointmentState extends State<ShowAppointment> {
                                 child: Text('Aceptar'),
                                 isDefaultAction: true,
                                 onPressed: () {
+                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                behavior: SnackBarBehavior.floating,
+                                content: Text('Turno Eliminado'),
+                                backgroundColor: Colors.red,
+                              ));
                                   Navigator.of(context, rootNavigator: true)
                                       .pop("Discard");
                                   Navigator.of(context).push(MaterialPageRoute(
@@ -100,6 +106,21 @@ class _ShowAppointmentState extends State<ShowAppointment> {
                         fontWeight: FontWeight.bold, color: Colors.white)),
               ),
             ),
+            Container(
+                      margin: EdgeInsets.only(top: 450),
+                      width: 300,
+                      child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.blue),
+                          ),
+                          child: Text("Agregar a Google Calendar",
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              )),
+                          onPressed: () => CalendarClient().insert(_appointment.date,
+                              (_appointment.date).add(Duration(minutes: 30)))))
           ],
         ),
       ),

@@ -93,7 +93,7 @@ class _UserProfileState extends State<UserProfile> {
                     splashColor: Colors.blue.withAlpha(30),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => MyAppointments()));
+                          builder: (context) => MyAppointments(user: _user,)));
                     },
                     child: const SizedBox(
                       width: 600,
