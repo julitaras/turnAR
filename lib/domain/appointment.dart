@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Appointment {
-  User _user;
+  User? _user;
   DateTime _date;
   TimeOfDay _time;
   String _site;
@@ -13,7 +13,7 @@ class Appointment {
 
   DateTime get date => _date;
 
-  User get user => _user;
+  User? get user => _user;
 
   String get site => _site;
 

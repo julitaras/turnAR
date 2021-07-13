@@ -15,14 +15,14 @@ class AppointmentService {
     String _uuid = uuid.v1();
 
     appointmentsRef.child(_uuid).set({
-      'user': _appointment.user.uid,
+      'user': _appointment.user!.uid,
       'date': _appointment.date,
       'time': _appointment.time,
       'site': _appointment.site,
       'reason': _appointment.reason
     });
 
-    databaseReference.child("users").child(_appointment.user.uid);
+    databaseReference.child("users").child(_appointment.user!.uid);
     getAllUserAppointments();
   }
 

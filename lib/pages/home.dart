@@ -1,3 +1,4 @@
+import 'package:app_turnar/domain/appointment.dart';
 import 'package:app_turnar/pages/my_appointments.dart';
 import 'package:app_turnar/pages/set_appointment.dart';
 import 'package:app_turnar/pages/show_appointment.dart';
@@ -5,7 +6,6 @@ import 'package:app_turnar/pages/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../Data/appointment.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, title, required User user})
@@ -14,8 +14,14 @@ class MyHomePage extends StatefulWidget {
 
   final String title = 'TurnAr';
   final User _user;
+
   //TODO deberia mostrar el turno más cercano de los que trae de la DB
-  final Appointment closestAppointment = Appointment( date: new DateTime.utc(2021, 7, 23), time: new TimeOfDay(hour: 15, minute: 0), description: "Primera Dosis".toUpperCase(), hospital: 'Hospital de Clínicas');
+  final Appointment closestAppointment = Appointment(
+      null,
+      new DateTime.utc(2021, 7, 23),
+      new TimeOfDay(hour: 15, minute: 0),
+      "Primera Dosis".toUpperCase(),
+      'Hospital de Clínicas');
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -30,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _user = widget._user;
     closestAppointment = widget.closestAppointment;
 
-  super.initState();
+    super.initState();
   }
 
   @override
@@ -114,9 +120,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       TextButton(
                         child: const Text('VER TURNO'),
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  ShowAppointment(user: _user, appointment: closestAppointment))).then((_) => setState(() {}));
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(
+                                  builder: (context) => ShowAppointment(
+                                      user: _user,
+                                      appointment: closestAppointment)))
+                              .then((_) => setState(() {}));
                         },
                       ),
                       const SizedBox(width: 8),
@@ -149,10 +158,8 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => SetAppointment(
-                    user: _user,
-                    title: "Reservar Turno"
-                  )));
+              builder: (context) =>
+                  SetAppointment(user: _user, title: "Reservar Turno")));
         },
         tooltip: 'Agendar Turno Nuevo',
         child: Icon(Icons.calendar_today),

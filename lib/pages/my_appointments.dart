@@ -13,7 +13,27 @@ class MyAppointments extends StatelessWidget {
   final User _user;
 
   //TODO deberia mostrar los turnos que trae de la DB
-  showpics() {
+  final Appointment appointment1 = Appointment(
+      null,
+      new DateTime.utc(2021, 7, 23),
+      new TimeOfDay(hour: 15, minute: 0),
+      "Primera Dosis".toUpperCase(),
+      'Hospital de Clínicas');
+  final Appointment appointment2 = Appointment(
+      null,
+      new DateTime.utc(2021, 8, 25),
+      new TimeOfDay(hour: 15, minute: 0),
+      "Segunda Dosis".toUpperCase(),
+      'Hospital de Clínicas');
+  final Appointment appointment3 = Appointment(
+      null,
+      new DateTime.utc(2021, 9, 28),
+      new TimeOfDay(hour: 15, minute: 0),
+      "Chequeo".toUpperCase(),
+      'Hospital de Clínicas');
+
+  //TODO deberia mostrar los turnos que trae de la DB
+/*  showpics() {
     return FutureBuilder(
         future: _loadAppointments(),
         builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
@@ -30,7 +50,7 @@ class MyAppointments extends StatelessWidget {
             ));
           }
         });
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
