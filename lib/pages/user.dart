@@ -74,38 +74,54 @@ class _UserProfileState extends State<UserProfile> {
                   ),
                 ),
                 SizedBox(
-                  height: 70,
+                  height: 10,
                 ),
                 Text(
-                  '( ${_user.email!} )',
+                  '${_user.email!}',
                   style: TextStyle(
                     color: Colors.orange,
-                    fontSize: 20,
+                    fontSize: 15,
                     letterSpacing: 0.5,
                   ),
                 ),
                 SizedBox(
-                  height: 70,
+                  height: 30,
                 ),
                 Card(
-                  margin: const EdgeInsets.only(top: 10.0),
                   child: InkWell(
                     splashColor: Colors.blue.withAlpha(30),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => MyAppointments(user: _user,)));
                     },
-                    child: const SizedBox(
-                      width: 600,
-                      height: 50,
+                    child: Padding(
+                          padding: const EdgeInsets.only(bottom: 10.0),
+                          child: Container(
+                      width: double.infinity,
                       child: Text(
                         '\nVer Mis Turnos',
                         textAlign: TextAlign.center,
                       ),
                     ),
+                    ),
                   ),
                 ),
-                SignOutButton(),
+                Container(
+                  height: 200.0,
+                ),
+                Container(
+                  height: 1.0,
+                  width: 150,
+                  color: Colors.grey,
+                ),
+                Container(
+                  height: 10.0,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 10.0),
+                  width: double.infinity,
+                child: SignOutButton(),
+                ),
               ],
             ),
           ),
