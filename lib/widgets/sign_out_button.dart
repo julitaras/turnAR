@@ -19,18 +19,44 @@ class _SignOutButtonState extends State<SignOutButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+                  primary: Colors.red[900],),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(
           'Cerrar sesión',
-          style: TextStyle(fontSize: 25, color: Colors.white),
+          style: TextStyle( color: Colors.white),
         ),
       ),
-      onPressed: () {
-        signOutGoogle();
+        onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (_) => CupertinoAlertDialog(
+                            title: Text('Cerrar Sesión'),
+                            content: Text(
+                                '¿Está seguro/a de que desea cerrar sesión'),
+                            actions: <Widget>[
+                              CupertinoDialogAction(
+                                child: Text('Aceptar'),
+                                isDefaultAction: true,
+                                onPressed: () {
+                                  signOutGoogle();
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => LoginScreen()),
             (Route<dynamic> route) => false);
+                                },
+                              ),
+                              CupertinoDialogAction(
+                                child: Text('Cancel'),
+                                isDefaultAction: false,
+                                isDestructiveAction: true,
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop("Cancel");
+                                },
+                              ),
+                            ],
+                          ));
       },
     );
   }
