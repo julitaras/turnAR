@@ -16,38 +16,17 @@ class AppointmentService {
 
     appointmentsRef.child(_uuid).set({
       'user': _appointment.user.uid,
-      'timestamp': 'test',
-      //TODO: Unhandled Exception: Invalid argument: Instance of 'DateTime'
-      'site': _appointment.site
+      'date': _appointment.date,
+      'time': _appointment.time,
+      'site': _appointment.site,
+      'reason': _appointment.reason
     });
 
-    final usersRef = databaseReference.child("users");
-    usersRef.child(_appointment.user.uid).set({
-      'last_appointment': _uuid,
-    });
-    getAllAppointments();
+    databaseReference.child("users").child(_appointment.user.uid);
+    getAllUserAppointments();
   }
 
-  Future<void> getNextAppointments() async {
-    //Ver proximo turno (desde la fecha actual) si esta despues de la
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final User? user = auth.currentUser;
-    Map? _appointments = await getAllAppointments();
-
-    databaseReference.child('users').once().then((DataSnapshot snapshot) {
-      Map<dynamic, dynamic>.from(snapshot.value).forEach((key, values) {
-        if (_appointments!.keys.firstWhere(
-            (element) => _appointments[element] == values['last_appointment'],
-            orElse: () => false)) {
-          print(snapshot.value);
-          return snapshot.value;
-        }
-      });
-    });
-  }
-
-  Future<Map<dynamic, dynamic>?> getAllAppointments() async {
-    // Ver todos los turnos de un usuario
+  Future<Map<dynamic, dynamic>?> getAllUserAppointments() async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser;
     databaseReference
