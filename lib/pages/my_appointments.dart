@@ -1,3 +1,4 @@
+import 'package:app_turnar/domain/appointment.dart';
 import 'package:app_turnar/services/appointment_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,72 +21,64 @@ class _MyAppointmentsState extends State<MyAppointments> {
     _loadAppointments();
   }
 
-/*
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Mis Turnos"),
-        ),
-        body: Container(
-          margin: const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              ListView.builder(
-                  itemCount: list.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                        child: Center(
-                      child: Text(
-                        list[index]!.reason,
-                      ),
-                    ));
-                  })
-            ],
-          ),
-        ));
-  }*/
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<dynamic>(
+    return FutureBuilder<List<Appointment?>>(
         future: _loadAppointments(),
         builder: (context, snapshot) {
+          List<Widget> children;
           if (snapshot.hasError) {
-            return Text(
-              'There was an error :(',
-              style: Theme.of(context).textTheme.headline,
-            );
+            children = <Widget>[
+              const Icon(
+                Icons.error_outline,
+                color: Colors.red,
+                size: 60,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: Text('Error: ${snapshot.error}'),
+              )
+            ];
           } else if (snapshot.hasData) {
-            return ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                      child: Center(
-                    child: Column(children: <Widget>[
-                      Card(
-                        child: Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: Column(
-                            children: [
-                              ListTile(
-                                title: Text(snapshot.data![index].toString()),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ]),
-                  ));
-                });
+            children = <Widget>[
+              const Icon(
+                Icons.check_circle_outline,
+                color: Colors.green,
+                size: 60,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: Text('Result: ${snapshot.data}'),
+              )
+            ];
           } else {
-            return CircularProgressIndicator();
+            children = const <Widget>[
+              SizedBox(
+                child: CircularProgressIndicator(),
+                width: 60,
+                height: 60,
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: Text('Awaiting result...'),
+              )
+            ];
           }
+          return Scaffold(
+              appBar: AppBar(
+                title: Text("Mis Turnos"),
+              ),
+              body: Container(
+                  margin:
+                      const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: children,
+                  )));
         });
   }
 
-  _loadAppointments() async {
+  Future<List<Appointment?>> _loadAppointments() async {
     return AppointmentService().getAllUserAppointments();
   }
 }
