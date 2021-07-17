@@ -62,8 +62,9 @@ class AppointmentService {
     final User? user = auth.currentUser;
     databaseReference
         .child("appointments")
-        .once()
-        .then((DataSnapshot snapshot) {
+        .onValue
+        .listen((event) {
+      var snapshot = event.snapshot;
       Map<dynamic, dynamic>.from(snapshot.value)
           .forEach((appointmentID, appointment) {
         if (appointment['user'] == user!.uid) {
