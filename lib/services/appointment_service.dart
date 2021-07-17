@@ -45,14 +45,14 @@ class AppointmentService {
     return TimeOfDay(hour: hour, minute: minute);
   }
 
-  Appointment? convertToAppointment(dynamic appointment) {
+  Appointment? convertToAppointment(String appointmentID, dynamic appointment) {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser;
     if (appointment['user'] == user!.uid) {
       DateTime date = DateTime.parse(appointment['date']);
       TimeOfDay time = timeConvert(appointment['time']);
-      return Appointment(
-          user, date, time, appointment['site'], appointment['reason']);
+      return Appointment(appointmentID, user, date, time, appointment['site'],
+          appointment['reason']);
     }
   }
 
@@ -60,15 +60,12 @@ class AppointmentService {
     List<Appointment?> list = [];
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser;
-    databaseReference
-        .child("appointments")
-        .onValue
-        .listen((event) {
+    databaseReference.child("appointments").onValue.listen((event) {
       var snapshot = event.snapshot;
       Map<dynamic, dynamic>.from(snapshot.value)
           .forEach((appointmentID, appointment) {
         if (appointment['user'] == user!.uid) {
-          Appointment? app = convertToAppointment(appointment);
+          Appointment? app = convertToAppointment(appointmentID, appointment);
           list.add(app);
         }
       });
@@ -76,10 +73,5 @@ class AppointmentService {
     return list;
   }
 
-/*
-  void updateData() {
-    final appointmentsRef = databaseReference.child("appointments");
-    appointmentsRef.child('appointments').update({'timestamp': 'CEO'});
-  }*/
-
+  Future<void> updateData() async {}
 }

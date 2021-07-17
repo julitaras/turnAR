@@ -56,6 +56,7 @@ class _ShowAppointmentState extends State<ShowAppointment> {
                   Navigator.of(context)
                       .push(MaterialPageRoute(
                           builder: (context) => SetAppointment(
+                                isEditingPage: true,
                                 user: _user,
                                 title: "Editar Turno",
                                 appointment: _appointment,
