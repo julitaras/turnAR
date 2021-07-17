@@ -5,6 +5,7 @@ import 'package:app_turnar/pages/set_appointment.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:app_turnar/services/appointment_service.dart';
 
 class ShowAppointment extends StatefulWidget {
   ShowAppointment(
@@ -41,8 +42,7 @@ class _ShowAppointmentState extends State<ShowAppointment> {
       ),
       body: Container(
         margin: const EdgeInsets.only(left: 10.0, right: 10.0, top: 30.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+        child: ListView(
           children: <Widget>[
             ListTile(
               title: Text(_appointment.dateTimeString),
@@ -85,6 +85,7 @@ class _ShowAppointmentState extends State<ShowAppointment> {
                                 child: Text('Aceptar'),
                                 isDefaultAction: true,
                                 onPressed: () {
+                                  AppointmentService().deleteData(_appointment);
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(SnackBar(
                                     behavior: SnackBarBehavior.floating,

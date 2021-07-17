@@ -1,5 +1,6 @@
 import 'package:app_turnar/api/calendarClient.dart';
 import 'package:app_turnar/domain/appointment.dart';
+import 'package:app_turnar/pages/home.dart';
 import 'package:app_turnar/services/appointment_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -58,6 +59,7 @@ class _SetAppointmentState extends State<SetAppointment> {
 
   @override
   void initState() {
+    _isEditingPage = widget._isEditingPage;
     _user = widget._user;
     _title = widget._title;
     _appointment = widget._appointment;
@@ -257,7 +259,8 @@ class _SetAppointmentState extends State<SetAppointment> {
                                     _selectedSite,
                                     _selectedReason),
                                 _isEditingPage
-                                    ? AppointmentService().updateData()
+                                    ? AppointmentService()
+                                        .updateData(_appointment)
                                     : AppointmentService()
                                         .createData(_appointment),
                                 ScaffoldMessenger.of(context)
@@ -266,7 +269,14 @@ class _SetAppointmentState extends State<SetAppointment> {
                                   content: Text('Turno Guardado'),
                                   backgroundColor: Colors.green,
                                 )),
-                                Navigator.pop(context),
+                                _isEditingPage
+                                    ? Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              MyHomePage(user: _user),
+                                        ),
+                                      )
+                                    : Navigator.pop(context)
                               })),
                 ]))));
   }

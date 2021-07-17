@@ -73,5 +73,25 @@ class AppointmentService {
     return list;
   }
 
-  Future<void> updateData() async {}
+  Future<void> updateData(Appointment _appointment) async {
+    final appointmentsRef = databaseReference.child("appointments");
+
+    appointmentsRef.child(_appointment.id).update({
+      'date': _appointment.date.toString(),
+      'time': _appointment.formatTimeOfDay(_appointment.time),
+      'site': _appointment.site,
+      'reason': _appointment.reason
+    });
+
+    databaseReference.child("users").child(_appointment.user!.uid);
+  }
+
+  Future<void> deleteData(Appointment _appointment) async {
+    final appointmentsRef = databaseReference.child("appointments");
+
+    appointmentsRef.child(_appointment.id).remove();
+
+    databaseReference.child("users").child(_appointment.user!.uid);
+  }
 }
+
