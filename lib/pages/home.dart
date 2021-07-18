@@ -17,6 +17,7 @@ class MyHomePage extends StatefulWidget {
 
   //TODO deberia mostrar el turno más cercano de los que trae de la DB
   final Appointment closestAppointment = Appointment(
+      "1234",
       null,
       new DateTime.utc(2021, 7, 23),
       new TimeOfDay(hour: 15, minute: 0),
@@ -158,8 +159,8 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) =>
-                  SetAppointment(user: _user, title: "Reservar Turno")));
+              builder: (context) => SetAppointment(
+                  isEditingPage: false, user: _user, title: "Reservar Turno")));
         },
         tooltip: 'Agendar Turno Nuevo',
         child: Icon(Icons.calendar_today),

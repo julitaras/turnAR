@@ -103,7 +103,6 @@ class _MyAppointmentsState extends State<MyAppointments> {
                   margin:
                       const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: children,
                   )));
         });

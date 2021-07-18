@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Appointment {
+  String _id;
   User? _user;
   DateTime _date;
   TimeOfDay _time;
   String _site;
   String _reason;
 
-  Appointment(this._user, this._date, this._time, this._site, this._reason);
+  Appointment(
+      this._id, this._user, this._date, this._time, this._site, this._reason);
+
+  String get id => _id;
 
   DateTime get date => _date;
 

@@ -1,5 +1,6 @@
 import 'package:app_turnar/api/calendarClient.dart';
 import 'package:app_turnar/domain/appointment.dart';
+import 'package:app_turnar/pages/home.dart';
 import 'package:app_turnar/services/appointment_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,18 +9,21 @@ import 'package:flutter/material.dart';
 class SetAppointment extends StatefulWidget {
   SetAppointment(
       {Key? key,
+      required bool isEditingPage,
       required User user,
       required String title,
       Appointment? appointment})
-      : _user = user,
+      : _isEditingPage = isEditingPage,
+        _user = user,
         _title = title,
         _appointment = appointment != null
             ? appointment
-            : new Appointment(user, DateTime.now(), TimeOfDay.now(),
+            : new Appointment("1", user, DateTime.now(), TimeOfDay.now(),
                 'Hospital de Clínicas', "PRIMERA DOSIS"),
         // TODO se debe chequear la cantidad de dosis que tienen el usuario para poder asignar primera o segunda dosis según corresponda al sacar un nuevo turno
         super(key: key);
 
+  final bool _isEditingPage;
   final User _user;
   final String _title;
   final Appointment _appointment;
@@ -32,6 +36,7 @@ class _SetAppointmentState extends State<SetAppointment> {
   late User _user;
   late String _title;
   late Appointment _appointment;
+  late bool _isEditingPage;
 
   late DateTime _pickedDate;
   late TimeOfDay _pickedTime;
@@ -54,6 +59,7 @@ class _SetAppointmentState extends State<SetAppointment> {
 
   @override
   void initState() {
+    _isEditingPage = widget._isEditingPage;
     _user = widget._user;
     _title = widget._title;
     _appointment = widget._appointment;
@@ -246,19 +252,31 @@ class _SetAppointmentState extends State<SetAppointment> {
                                   fontSize: 17, fontWeight: FontWeight.bold)),
                           onPressed: () => {
                                 _appointment = new Appointment(
+                                    _appointment.id,
                                     _user,
                                     _pickedDate,
                                     _pickedTime,
                                     _selectedSite,
                                     _selectedReason),
-                                AppointmentService().createData(_appointment),
+                                _isEditingPage
+                                    ? AppointmentService()
+                                        .updateData(_appointment)
+                                    : AppointmentService()
+                                        .createData(_appointment),
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(SnackBar(
                                   behavior: SnackBarBehavior.floating,
                                   content: Text('Turno Guardado'),
                                   backgroundColor: Colors.green,
                                 )),
-                                Navigator.pop(context),
+                                _isEditingPage
+                                    ? Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              MyHomePage(user: _user),
+                                        ),
+                                      )
+                                    : Navigator.pop(context)
                               })),
                 ]))));
   }
