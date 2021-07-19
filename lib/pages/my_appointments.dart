@@ -23,7 +23,7 @@ class _MyAppointmentsState extends State<MyAppointments> {
   bool loading = true;
 
   void startTimer() {
-    Timer.periodic(const Duration(seconds: 2), (t) {
+    Timer.periodic(const Duration(seconds: 1), (t) {
       setState(() {
         loading = false;
       });
