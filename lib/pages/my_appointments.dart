@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app_turnar/domain/appointment.dart';
 import 'package:app_turnar/pages/show_appointment.dart';
 import 'package:app_turnar/services/appointment_service.dart';
@@ -18,11 +20,23 @@ class MyAppointments extends StatefulWidget {
 
 class _MyAppointmentsState extends State<MyAppointments> {
   late User _user;
+  bool loading = true;
 
+  void startTimer() {
+    Timer.periodic(const Duration(seconds: 2), (t) {
+      setState(() {
+        loading = false; //set loading to false
+      });
+      t.cancel(); //stops the timer
+    });
+  }
+
+  @override
   void initState() {
-    super.initState();
+    startTimer();
     _user = widget._user;
     _loadAppointments();
+    super.initState();
   }
 
   Widget buildBody(BuildContext context, Appointment? appointment) {
@@ -54,6 +68,18 @@ class _MyAppointmentsState extends State<MyAppointments> {
     );
   }
 
+  List<Widget> buildProgress() {
+    return <Widget>[
+      Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+        SizedBox(
+          child: CircularProgressIndicator(),
+          width: 100,
+          height: 100,
+        )
+      ])
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Appointment?>>(
@@ -65,14 +91,35 @@ class _MyAppointmentsState extends State<MyAppointments> {
               const Icon(
                 Icons.error_outline,
                 color: Colors.red,
-                size: 60,
+                size: 100,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 16),
                 child: Text('Error: ${snapshot.error}'),
               )
             ];
-          } else if (snapshot.hasData) {
+          } else if (snapshot.hasData &&
+              loading == false &&
+              snapshot.data!.length == 0) {
+            children = <Widget>[
+              const Icon(
+                Icons.error_outline,
+                color: Colors.red,
+                size: 100,
+              ),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text('No hay turnos agendados',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    )
+                  ])
+            ];
+          } else if (snapshot.hasData &&
+              loading == false &&
+              snapshot.data!.length != 0) {
             children = <Widget>[
               Expanded(
                   child: ListView.builder(
@@ -83,17 +130,7 @@ class _MyAppointmentsState extends State<MyAppointments> {
                           buildBody(context, snapshot.data![index])))
             ];
           } else {
-            children = const <Widget>[
-              SizedBox(
-                child: CircularProgressIndicator(),
-                width: 60,
-                height: 60,
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 16),
-                child: Text('Awaiting result...'),
-              )
-            ];
+            children = buildProgress();
           }
           return Scaffold(
               appBar: AppBar(
@@ -103,6 +140,7 @@ class _MyAppointmentsState extends State<MyAppointments> {
                   margin:
                       const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: children,
                   )));
         });
