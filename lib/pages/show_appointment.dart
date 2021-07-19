@@ -2,10 +2,10 @@ import 'package:app_turnar/api/calendarClient.dart';
 import 'package:app_turnar/domain/appointment.dart';
 import 'package:app_turnar/pages/home.dart';
 import 'package:app_turnar/pages/set_appointment.dart';
+import 'package:app_turnar/services/appointment_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:app_turnar/services/appointment_service.dart';
 
 class ShowAppointment extends StatefulWidget {
   ShowAppointment(
@@ -100,7 +100,7 @@ class _ShowAppointmentState extends State<ShowAppointment> {
                                 },
                               ),
                               CupertinoDialogAction(
-                                child: Text('Cancel'),
+                                child: Text('Cancelar'),
                                 isDefaultAction: false,
                                 isDestructiveAction: true,
                                 onPressed: () {
