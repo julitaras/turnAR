@@ -25,9 +25,9 @@ class _MyAppointmentsState extends State<MyAppointments> {
   void startTimer() {
     Timer.periodic(const Duration(seconds: 2), (t) {
       setState(() {
-        loading = false; //set loading to false
+        loading = false;
       });
-      t.cancel(); //stops the timer
+      t.cancel();
     });
   }
 
