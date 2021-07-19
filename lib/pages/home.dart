@@ -6,6 +6,7 @@ import 'package:app_turnar/pages/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, title, required User user})
@@ -15,14 +16,7 @@ class MyHomePage extends StatefulWidget {
   final String title = 'TurnAr';
   final User _user;
 
-  //TODO deberia mostrar el turno más cercano de los que trae de la DB
-  final Appointment closestAppointment = Appointment(
-      "1234",
-      null,
-      new DateTime.utc(2021, 7, 23),
-      new TimeOfDay(hour: 15, minute: 0),
-      "Primera Dosis".toUpperCase(),
-      'Hospital de Clínicas');
+  final String noticias = "https://vacunatepba.gba.gob.ar/";
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -30,12 +24,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late User _user;
-  late Appointment closestAppointment;
+  late String noticias;
 
   @override
   void initState() {
     _user = widget._user;
-    closestAppointment = widget.closestAppointment;
+    noticias = widget.noticias;
 
     super.initState();
   }
@@ -110,23 +104,22 @@ class _MyHomePageState extends State<MyHomePage> {
               margin: const EdgeInsets.only(top: 20.0),
               child: Column(
                 children: <Widget>[
-                  const ListTile(title: Text('Próximo Turno:')),
+                  const ListTile(title: Text('Novedades')),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[Text(closestAppointment.dateTimeString)],
+                    children: <Widget>[ 
+                      Image.asset('assets/images/novedades.jpg',
+                      height: 100, fit: BoxFit.fill
+                      ),
+                    ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       TextButton(
-                        child: const Text('VER TURNO'),
+                        child: const Text('Ver Novedades'),
                         onPressed: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(
-                                  builder: (context) => ShowAppointment(
-                                      user: _user,
-                                      appointment: closestAppointment)))
-                              .then((_) => setState(() {}));
+                          _launchURL();
                         },
                       ),
                       const SizedBox(width: 8),
@@ -167,4 +160,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
+  void _launchURL() async =>
+    await canLaunch(this.noticias) ? await launch(this.noticias) : throw 'Could not launch $this.noticias';
 }
