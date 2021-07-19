@@ -97,7 +97,6 @@ class _ShowAppointmentState extends State<ShowAppointment> {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) =>
                                           MyHomePage(user: _user)));
-                                  // TODO: debe eliminar el turno
                                 },
                               ),
                               CupertinoDialogAction(
