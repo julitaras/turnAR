@@ -37,6 +37,15 @@ class _SignOutButtonState extends State<SignOutButton> {
                   content: Text('¿Está seguro/a de que desea cerrar sesión'),
                   actions: <Widget>[
                     CupertinoDialogAction(
+                      child: Text('Cancelar'),
+                      isDefaultAction: false,
+                      isDestructiveAction: true,
+                      onPressed: () {
+                        Navigator.of(context, rootNavigator: true)
+                            .pop("Cancel");
+                      },
+                    ),
+                    CupertinoDialogAction(
                       child: Text('Aceptar'),
                       isDefaultAction: true,
                       onPressed: () {
@@ -45,15 +54,6 @@ class _SignOutButtonState extends State<SignOutButton> {
                             MaterialPageRoute(
                                 builder: (context) => LoginScreen()),
                             (Route<dynamic> route) => false);
-                      },
-                    ),
-                    CupertinoDialogAction(
-                      child: Text('Cancelar'),
-                      isDefaultAction: false,
-                      isDestructiveAction: true,
-                      onPressed: () {
-                        Navigator.of(context, rootNavigator: true)
-                            .pop("Cancel");
                       },
                     ),
                   ],

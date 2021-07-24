@@ -82,6 +82,15 @@ class _ShowAppointmentState extends State<ShowAppointment> {
                                 '¿Está seguro/a de que desea eliminar su turno?'),
                             actions: <Widget>[
                               CupertinoDialogAction(
+                                child: Text('Cancelar'),
+                                isDefaultAction: false,
+                                isDestructiveAction: true,
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop("Cancel");
+                                },
+                              ),
+                              CupertinoDialogAction(
                                 child: Text('Aceptar'),
                                 isDefaultAction: true,
                                 onPressed: () {
@@ -97,15 +106,6 @@ class _ShowAppointmentState extends State<ShowAppointment> {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) =>
                                           MyHomePage(user: _user)));
-                                },
-                              ),
-                              CupertinoDialogAction(
-                                child: Text('Cancelar'),
-                                isDefaultAction: false,
-                                isDestructiveAction: true,
-                                onPressed: () {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .pop("Cancel");
                                 },
                               ),
                             ],
