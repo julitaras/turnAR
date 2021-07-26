@@ -1,6 +1,6 @@
 # app_turnar
 
-A new Flutter project.
+A flutter project with the objetive of save appointments to get covid vaccine.
 
 ## Getting Started
 
