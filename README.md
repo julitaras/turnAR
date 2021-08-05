@@ -16,6 +16,12 @@ More information can be found in the following [link](http://nvie.com/posts/a-su
 
 In the root project: 
 
-```sh
-flutter run
-```
+  **Get the packages:**
+  ```sh
+  flutter pub get
+  ```
+
+  **Run app:**
+  ```sh
+  flutter run
+  ```
