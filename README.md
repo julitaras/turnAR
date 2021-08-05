@@ -14,7 +14,12 @@ More information can be found in the following [link](http://nvie.com/posts/a-su
 
 ## Run app
 
-In the root project: 
+First, must have install [`flutter`](https://flutter.dev/docs/get-started/install).
+
+Second, install emulator and run it.
+
+Finally,
+in the root project: 
 
   **Get the packages:**
   ```sh
