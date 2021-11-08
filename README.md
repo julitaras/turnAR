@@ -30,3 +30,9 @@ in the root project:
   ```sh
   flutter run
   ```
+
+## Trailer
+[Link](youtube.com/watch?v=VBZzQhTBkR8)
+
+## Full video
+[Link](https://www.youtube.com/watch?v=_xKRGqQBaao)
